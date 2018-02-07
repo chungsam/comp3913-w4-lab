@@ -45,7 +45,7 @@ router.post("/countries", function(req, res, next) {
 
 // delete a country
 router.delete("/countries/:id", function(req, res, next) {
-  db.countries.remove({ _id: req.params.id }, function(err, data) {
+  db.countries.remove({ _id: mongojs.ObjectId(req.params.id) }, function(err, data) {
     if (err) res.send(err);
     res.json(data);
   });
@@ -57,11 +57,11 @@ router.put("/countries/:id", function(req, res, next) {
   var changedCountry = {};
 
   if (country.country) {
-      changedCountry.country = country.country;
+    changedCountry.country = country.country;
   }
 
   if (country.population) {
-      changedCountry.population = country.population;
+    changedCountry.population = country.population;
   }
 
   if (Object.keys(changedCountry).length == 0) {
